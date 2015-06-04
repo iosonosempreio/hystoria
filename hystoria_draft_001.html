@@ -1,0 +1,70 @@
+ // CONTENUTI HTML //
+
+<div id="topCont">Historia: esperimento di scrittura collettiva</div>
+	<textarea wrap="off" onchange="checkWordLen(this);" onfocus="clearContents(this);" id="newCont" maxlength="140" rows="3" cols="40">
+	</textarea>
+		</br>
+		<div id="baseCont">
+			Premi il pulsante </br></br></br></br></br></br>/*VERSIONE TEST - PULSANTE: ENTER - QUI SOTTO VIENE VISUALIZZATO IL CONTENUTO DEL SECONDO SCHERMO*/
+		</div>
+		</br></br></br></br></br></br>
+	<div id="storyContainer"></div>
+
+// JAVASCRIPT //
+// NELLA HEAD //
+
+<script>
+// MEMORIA, FUNCTION CALLS E PULSANTE //
+window.onkeypress=function(event){checkWord(gidd('newCont'));
+						if(event.keyCode == 13 && iniziato==0){myInit()}
+						else if(event.keyCode == 13 && iniziato==1){checkWordLen(document.getElementById('newCont'));}
+						else if(event.keyCode == 13 && iniziato==3){checkWordLen(document.getElementById('newCont'));}
+						if(event.keyCode == 13 && check==1){renderStory();check=0;iniziato=2;myInit()}}
+						
+</script>
+
+// NEL BODY //
+
+<script>window.iniziato=0;window.check=0;
+
+//MOTORE//
+function myInit(){
+	//INIZIO STORIA//
+if(iniziato == 0){
+gidd('topCont').innerHTML='L\'incipit della storia deve essere di almeno 8 parole';
+gidd('newCont').innerHTML='...';
+gidd('baseCont').innerHTML='Come inizia?';iniziato=1;}
+   //LOADING PERSONA SUCCESSIVA//
+else if(iniziato == 2){
+gidd('baseCont').innerHTML='Loading..';
+gidd('topCont').innerHTML='Perfetto! Ora lascia libera la tastiera per far continuare qualcun’altro!';
+clearContents(gidd('newCont'));gidd('newCont').setAttribute('opacity','0');
+setTimeout('iniziato=3;myInit()',4000)
+}
+   //INSERIMENTO NUOVO CONTENUTO//
+else if(iniziato == 3){gidd('newCont').setAttribute('opacity','1');
+gidd('topCont').innerHTML=newCont+'...';
+gidd('newCont').innerHTML='[...]';gidd('newCont').setAttribute('onfocus','');
+gidd('baseCont').innerHTML='Continua la storia digitando altre 8 parole';
+}
+}
+window.gidd=function(s){return document.getElementById(s)};
+//RENDER STORY//
+function renderStory(){window.newCont=gidd('newCont').value;
+if(newCont!='prosegui la storia..'||newCont!=''){gidd('storyContainer').innerHTML+=' '+newCont;
+gidd('newCont').value='';
+}else{alert('Inserisci un nuovo pezzo della storia!')}}
+function clearContents(element) {element.value = '';}
+// CONTROLLA IL LIMITE DELLE PAROLE //
+    var wordLen = 8;  // NUMERO DI PAROLE MINIMO //
+	function checkWord(obj){var len = obj.value.split(/[\s]+/);if(len.length>=wordLen){gidd('baseCont').innerHTML='Premi il pulsante';}
+	else{gidd('baseCont').innerHTML='Inserisci almeno 8 parole';}}
+     function checkWordLen(obj){
+      var len = obj.value.split(/[\s]+/);
+       if(len.length < wordLen){
+           alert('Inserisci almeno 8 parole!')
+           return false;
+       }else{check=1;}
+     return true;
+   }
+</script>
