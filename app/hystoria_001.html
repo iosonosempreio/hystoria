@@ -133,17 +133,17 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-        <div class="container">
+        <div style="display:none" class="container">
             <p><strong>Input:</strong> Press the button on the breadboard to display the state below.</p>
             <p id="state">Display Button State</p>
         </div>
-        <img id="schematic" src="">
-        <button id="schematicBtn" data-state="hidden">Show Schematic</button>
+        <img style="display:none" id="schematic" src="">
+        <button style="display:none" id="schematicBtn" data-state="hidden">Show Schematic</button>
 
-<div id="topCont">Historia: esperimento di scrittura collettiva</div>
+<div id="topCont"></div>
 		<textarea wrap="off" onchange="checkWordLen(this);" onfocus="clearContents(this);" id="newCont" maxlength="140" rows="3" cols="40" autofocus></textarea>
-		<!--<button onclick="renderStory()" id="addCont">Aggiungi!</button>--></br>
-		<div id="baseCont">Premi il pulsante </br></br></br></br></br></br>/*VERSIONE TEST - PULSANTE: ENTER - QUI SOTTO VIENE VISUALIZZATO IL CONTENUTO DEL SECONDO SCHERMO*/</div></br></br></br></br></br></br>
+		<button onclick="myPress()" id="addCont">button</button></br>
+		<div id="baseCont"><img src=""/></div></br></br></br></br></br></br>
 	<div id="storyContainer"></div>	
 </body>
 <script>
@@ -160,9 +160,9 @@ window.iniziato=0;window.check=0;
 function myInit(){
 	//INIZIO STORIA//
 if(iniziato == 0){
-gidd('topCont').innerHTML='L\'incipit della storia deve essere di almeno 8 parole';
+gidd('topCont').innerHTML='';
 gidd('newCont').innerHTML='...';
-gidd('baseCont').innerHTML='Come inizia?';iniziato=1;}
+gidd('baseCont').innerHTML='<h3>Inizi la storia, scrivi almeno 7 parole</h3>';iniziato=1;}
    //LOADING PERSONA SUCCESSIVA//
 else if(iniziato == 2){
 gidd('baseCont').innerHTML='Loading..';
@@ -186,7 +186,7 @@ gidd('newCont').value='';
 function clearContents(element) {element.value = '';}
 // CONTROLLA IL LIMITE DELLE PAROLE //
     var wordLen = 8;  // NUMERO DI PAROLE MINIMO //
-	function checkWord(obj){var len = obj.value.split(/[\s]+/);if(len.length>=wordLen){gidd('baseCont').innerHTML='Premi il pulsante';}
+	function checkWord(obj){var len = obj.value.split(/[\s]+/);if(len.length>=wordLen){gidd('baseCont').innerHTML='<img src=""/>';}
 	else{gidd('baseCont').innerHTML='Inserisci almeno 8 parole';}}
      function checkWordLen(obj){
       var len = obj.value.split(/[\s]+/);
