@@ -151,7 +151,7 @@ $(document).ready(function() {
 function myPress(){checkWord(gidd('newCont'));
 						if(iniziato==0){myInit()}
 						else if(iniziato==1){checkWordLen(document.getElementById('newCont'));}
-						else if(iniziato==3){checkWordLen(document.getElementById('newCont'));}
+						else if(iniziato==3){checkWordLenn(document.getElementById('newCont'));}
 						if(check==1){renderStory();check=0;iniziato=2;myInit()}}
 						
 window.iniziato=0;window.check=0;
@@ -162,11 +162,11 @@ function myInit(){
 if(iniziato == 0){
 gidd('topCont').innerHTML='';
 gidd('newCont').innerHTML='...';
-gidd('baseCont').innerHTML='<h3>Inizi la storia, scrivi almeno 7 parole</h3>';iniziato=1;}
+gidd('baseCont').innerHTML='<h3>Inizia la storia, scrivi almeno 7 parole</h3>';iniziato=1;}
    //LOADING PERSONA SUCCESSIVA//
 else if(iniziato == 2){
-gidd('baseCont').innerHTML='Loading..';
-gidd('topCont').innerHTML='Perfetto! Ora lascia libera la tastiera per far continuare qualcun’altro!';
+gidd('baseCont').innerHTML='';
+gidd('topCont').innerHTML='<h1>Bene!</h1><h2>Ora lascia libera la tastiera</br> per fare proseguire</br> qualcun altro!</h2>';
 clearContents(gidd('newCont'));gidd('newCont').setAttribute('opacity','0');
 setTimeout('iniziato=3;myInit()',4000)
 }
@@ -174,7 +174,7 @@ setTimeout('iniziato=3;myInit()',4000)
 else if(iniziato == 3){gidd('newCont').setAttribute('opacity','1');
 gidd('topCont').innerHTML=newCont+'...';
 gidd('newCont').innerHTML='[...]';gidd('newCont').setAttribute('onfocus','');
-gidd('baseCont').innerHTML='Continua la storia digitando altre 8 parole';
+gidd('baseCont').innerHTML='<h2>Continua la storia digitando altre 8 parole</h2>';
 }
 }
 window.gidd=function(s){return document.getElementById(s)};
@@ -182,16 +182,18 @@ window.gidd=function(s){return document.getElementById(s)};
 function renderStory(){window.newCont=gidd('newCont').value;
 if(newCont!='prosegui la storia..'||newCont!=''){gidd('storyContainer').innerHTML+=' '+newCont;
 gidd('newCont').value='';
-}else{alert('Inserisci un nuovo pezzo della storia!')}}
+}else{}}
 function clearContents(element) {element.value = '';}
 // CONTROLLA IL LIMITE DELLE PAROLE //
-    var wordLen = 8;  // NUMERO DI PAROLE MINIMO //
+    var wordLen = 8; var wordLenn = (Math.floor(Math.random() * 10)+5);  // NUMERO DI PAROLE MINIMO //
 	function checkWord(obj){var len = obj.value.split(/[\s]+/);if(len.length>=wordLen){gidd('baseCont').innerHTML='<img src=""/>';}
-	else{gidd('baseCont').innerHTML='Inserisci almeno 8 parole';}}
+	else{gidd('baseCont').innerHTML='<h2>Inserisci almeno 8 parole</h2>';}}
+	function checkWordd(obj){var len = obj.value.split(/[\s]+/);if(len.length>=wordLenn){gidd('baseCont').innerHTML='<img src=""/>';}
+	else{gidd('baseCont').innerHTML='<h2>Continua la storia con '+wordLenn+' parole</h2>';}}
      function checkWordLen(obj){
       var len = obj.value.split(/[\s]+/);
        if(len.length < wordLen){
-           alert('Inserisci almeno 8 parole!')
+           
            return false;
        }else{check=1;}
      return true;
