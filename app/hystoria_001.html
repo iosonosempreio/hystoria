@@ -143,7 +143,7 @@ $(document).ready(function() {
 <div id="topCont" class="begin"><h1>Benvenuto!</h1><h2>Scrivi l'inizio di una storia,</br>poi lascia a qualcunaltro</br>il compito di proseguirla!</h2></div>
 		<textarea class="hide" wrap="off" onchange="checkWordLen(this);" onfocus="clearContents(this);" id="newCont" rows="3" cols="40" autofocus></textarea>
 		<button onclick="myPress()" id="addCont">button</button></br>
-		<div id="baseCont"><img src=""/></div>
+		<div id="baseCont"><img src="img/gif.gif"/></div>
 	<div id="storyContainer"></div>	
 </body>
 <script>
@@ -189,9 +189,9 @@ gidd('newCont').value='';
 function clearContents(element) {element.value = '';}
 // CONTROLLA IL LIMITE DELLE PAROLE //
     var wordLen = 8;  // NUMERO DI PAROLE MINIMO //
-	function checkWord(obj){var len = obj.value.split(/[\s]+/);if(len.length>=wordLen){gidd('baseCont').innerHTML='<img src=""/>';}
+	function checkWord(obj){var len = obj.value.split(/[\s]+/);if(len.length>=wordLen){gidd('baseCont').innerHTML='<img src="img/gif.gif"/>';}
 	else{gidd('baseCont').innerHTML='<h2>Inserisci almeno 8 parole</h2>';setPage=1;}}
-	function checkWordd(obj){if(setDouble!=1){window.wordLenn = (Math.floor(Math.random() * 10)+6)};var len = obj.value.split(/[\s]+/);if(len.length>=wordLenn){gidd('baseCont').innerHTML='<img src=""/>';}
+	function checkWordd(obj){if(setDouble!=1){window.wordLenn = (Math.floor(Math.random() * 10)+6)};var len = obj.value.split(/[\s]+/);if(len.length>=wordLenn){gidd('baseCont').innerHTML='<img src="img/gif.gif"/>';}
 	else{gidd('baseCont').innerHTML='<h2>Continua la storia con almeno '+wordLenn+' parole</h2>';setDouble=1;}}
      function checkWordLen(obj){
       var len = obj.value.split(/[\s]+/);

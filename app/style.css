@@ -80,6 +80,10 @@ textarea {
 	
 }
 
+#baseCont img {
+	width: 100px;
+}
+
 #addCont {
   position: absolute;
   top: 20px;
