@@ -69,6 +69,13 @@ textarea {
 	transform: translateY(-50%);
 }
 
+#topCont.good {
+	top: 45%;
+	-webkit-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
+
 #baseCont {
   width: 100%;
   text-align: center;
