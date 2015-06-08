@@ -115,7 +115,7 @@ $(document).ready(function() {
         button = new Button(arduino, arduino.getDigitalPin(2));
         
         // Listen for button press and release events
-        	button.addEventListener(ButtonEvent.PRESS, onPress);
+		button.addEventListener(ButtonEvent.PRESS, onPress);
 		//FUNZIONE COMBINAZIONE DI TASTI
 		
         button.addEventListener(ButtonEvent.RELEASE, onRelease);
@@ -185,7 +185,7 @@ $(document).ready(function() {
         <button id="schematicBtn" data-state="hidden">Show Schematic</button>
 
 <div id="topCont">Historia: esperimento di scrittura collettiva</div>
-		<textarea wrap="off" onchange="checkWordLen(this);" onfocus="clearContents(this);" id="newCont" maxlength="140" rows="3" cols="40"></textarea>
+		<textarea wrap="off" onchange="checkWordLen(this);" onfocus="clearContents(this);" id="newCont" maxlength="140" rows="3" cols="40" autofocus></textarea>
 		<!--<button onclick="renderStory()" id="addCont">Aggiungi!</button>--></br>
 		<div id="baseCont">Premi il pulsante </br></br></br></br></br></br>/*VERSIONE TEST - PULSANTE: ENTER - QUI SOTTO VIENE VISUALIZZATO IL CONTENUTO DEL SECONDO SCHERMO*/</div></br></br></br></br></br></br>
 	<div id="storyContainer"></div>	
