@@ -148,7 +148,7 @@ $(document).ready(function() {
 </body>
 <script>
 // MEMORIA, FUNCTION CALLS E PULSANTE //
-window.onkeypress=function(event){checkWord(gidd('newCont'));}
+window.onkeypress=function(event){if(setPage==0){checkWord(gidd('newCont'))}else{checkWordd(gidd('newCont'))};}
 function myPress(){if(setPage==0){checkWord(gidd('newCont'))}else{checkWordd(gidd('newCont'));};
 						if(iniziato==0){myInit()}
 						else if(iniziato==1){checkWordLen(document.getElementById('newCont'));}
