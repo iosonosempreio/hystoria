@@ -141,25 +141,26 @@ $(document).ready(function() {
         <button style="display:none" id="schematicBtn" data-state="hidden">Show Schematic</button>
 
 <div id="topCont"><h1>Benvenuto!</h1><h2>Scrivi l'inizio di una storia,</br>poi lascia a qualcunaltro</br>il compito di proseguirla!</h2></div>
-		<textarea wrap="off" onchange="checkWordLen(this);" onfocus="clearContents(this);" id="newCont" maxlength="140" rows="3" cols="40" autofocus></textarea>
+		<textarea class="hide" wrap="off" onchange="checkWordLen(this);" onfocus="clearContents(this);" id="newCont" rows="3" cols="40" autofocus></textarea>
 		<button onclick="myPress()" id="addCont">button</button></br>
-		<div id="baseCont"><img src=""/></div></br></br></br></br></br></br>
+		<div id="baseCont"><img src=""/></div>
 	<div id="storyContainer"></div>	
 </body>
 <script>
 // MEMORIA, FUNCTION CALLS E PULSANTE //
-function myPress(){checkWord(gidd('newCont'));
+function myPress(){if(setPage==0){checkWord(gidd('newCont'))}else{checkWordd(gidd('newCont'));};
 						if(iniziato==0){myInit()}
 						else if(iniziato==1){checkWordLen(document.getElementById('newCont'));}
-						else if(iniziato==3){checkWordLenn(document.getElementById('newCont'));}
+						else if(iniziato==3){checkWordLen(document.getElementById('newCont'));}
 						if(check==1){renderStory();check=0;iniziato=2;myInit()}}
 						
-window.iniziato=0;window.check=0;
+window.iniziato=0;window.check=0;window.setPage=0;
 
 //MOTORE//
 function myInit(){
 	//INIZIO STORIA//
 if(iniziato == 0){
+gidd('newCont').classList.remove('hide');
 gidd('topCont').innerHTML='';
 gidd('newCont').innerHTML='...';
 gidd('baseCont').innerHTML='<h3>Inizia la storia, scrivi almeno 7 parole</h3>';iniziato=1;}
@@ -174,7 +175,7 @@ setTimeout('iniziato=3;myInit()',4000)
 else if(iniziato == 3){gidd('newCont').setAttribute('opacity','1');
 gidd('topCont').innerHTML=newCont+'...';
 gidd('newCont').innerHTML='[...]';gidd('newCont').setAttribute('onfocus','');
-gidd('baseCont').innerHTML='<h2>Continua la storia digitando altre 8 parole</h2>';
+gidd('baseCont').innerHTML='<h2>Continua la storia con '+wordLenn+' parole</h2>';
 }
 }
 window.gidd=function(s){return document.getElementById(s)};
@@ -185,10 +186,10 @@ gidd('newCont').value='';
 }else{}}
 function clearContents(element) {element.value = '';}
 // CONTROLLA IL LIMITE DELLE PAROLE //
-    var wordLen = 8; var wordLenn = (Math.floor(Math.random() * 10)+5);  // NUMERO DI PAROLE MINIMO //
+    var wordLen = 8;  // NUMERO DI PAROLE MINIMO //
 	function checkWord(obj){var len = obj.value.split(/[\s]+/);if(len.length>=wordLen){gidd('baseCont').innerHTML='<img src=""/>';}
-	else{gidd('baseCont').innerHTML='<h2>Inserisci almeno 8 parole</h2>';}}
-	function checkWordd(obj){var len = obj.value.split(/[\s]+/);if(len.length>=wordLenn){gidd('baseCont').innerHTML='<img src=""/>';}
+	else{gidd('baseCont').innerHTML='<h2>Inserisci almeno 8 parole</h2>';setPage=1;}}
+	function checkWordd(obj){window.wordLenn = (Math.floor(Math.random() * 10)+5);var len = obj.value.split(/[\s]+/);if(len.length>=wordLenn){gidd('baseCont').innerHTML='<img src=""/>';}
 	else{gidd('baseCont').innerHTML='<h2>Continua la storia con '+wordLenn+' parole</h2>';}}
      function checkWordLen(obj){
       var len = obj.value.split(/[\s]+/);
