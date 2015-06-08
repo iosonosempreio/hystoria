@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <meta charset=utf-8 />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <style type="text/css">
@@ -25,6 +24,7 @@ h2 {
     color: #00AEFF;
 }
 #state {
+	display:none;
     color: #00AEFF;
     font-size: 22px;
     margin-bottom: 0;
@@ -51,9 +51,9 @@ h2 {
 </style>
 
 <title>Hello World Example</title>
-
+<link rel="stylesheet" type="text/css" src="style.css"/>
 <!-- The following (socket.io.js) is only required when using the node_server -->
-<script src="../../socket.io/socket.io.js"></script>
+<!--<script src="../../socket.io/socket.io.js"></script>-->
 <script src="../../dist/Breakout.min.js"></script>
 <script src="../libs/fastclick.min.js"></script>
 <script src="../libs/jquery.min.js"></script>
@@ -114,7 +114,13 @@ $(document).ready(function() {
         
         // Listen for button press and release events
         button.addEventListener(ButtonEvent.PRESS, onPress);
+		//FUNZIONE COMBINAZIONE DI TASTI
+		window.onkeypress=function(event){
+						if(event.keyCode == 13){myInit()}
+						}
+		
         button.addEventListener(ButtonEvent.RELEASE, onRelease);
+		//FUNZIONE COMBINAZIONE DI TASTI
         
 /*
         // Use jQuery to get a reference to the buttons
@@ -129,7 +135,8 @@ $(document).ready(function() {
         // triggered the event
         var btn = evt.target;
         // Display the state on the page
-        $state.html("Button " + btn.pinNumber + " state: Pressed");
+        $state.html("Button " + btn.pinNumber + " state: Pressed");myPress();
+		
         
     }
 
@@ -170,21 +177,70 @@ $(document).ready(function() {
 */
 });
 </script>
-
 </head>
 <body>
-    <h2>Hello World Example</h2>
-        <div class="container">
-            <p><strong>Output:</strong> Use the buttons below to turn the LED on the breadboard on or off.</p>
-            <button id="btnLeft" class="ledBtns" type="button">LED Off</button>
-            <span class="spacer"></span>
-            <button id="btnRight" class="ledBtns" type="button">LED On</button>
-        </div>
         <div class="container">
             <p><strong>Input:</strong> Press the button on the breadboard to display the state below.</p>
             <p id="state">Display Button State</p>
         </div>
         <img id="schematic" src="images/hello_world_schematic.png">
         <button id="schematicBtn" data-state="hidden">Show Schematic</button>
+
+<div id="topCont">Historia: esperimento di scrittura collettiva</div>
+		<textarea wrap="off" onchange="checkWordLen(this);" onfocus="clearContents(this);" id="newCont" maxlength="140" rows="3" cols="40"></textarea>
+		<!--<button onclick="renderStory()" id="addCont">Aggiungi!</button>--></br>
+		<div id="baseCont">Premi il pulsante </br></br></br></br></br></br>/*VERSIONE TEST - PULSANTE: ENTER - QUI SOTTO VIENE VISUALIZZATO IL CONTENUTO DEL SECONDO SCHERMO*/</div></br></br></br></br></br></br>
+	<div id="storyContainer"></div>	
 </body>
+<script>
+// MEMORIA, FUNCTION CALLS E PULSANTE //
+function myPress(){checkWord(gidd('newCont'));
+						if(iniziato==0){myInit()}
+						else if(iniziato==1){checkWordLen(document.getElementById('newCont'));}
+						else if(iniziato==3){checkWordLen(document.getElementById('newCont'));}
+						if(check==1){renderStory();check=0;iniziato=2;myInit()}}
+						
+window.iniziato=0;window.check=0;
+
+//MOTORE//
+function myInit(){
+	//INIZIO STORIA//
+if(iniziato == 0){
+gidd('topCont').innerHTML='L\'incipit della storia deve essere di almeno 8 parole';
+gidd('newCont').innerHTML='...';
+gidd('baseCont').innerHTML='Come inizia?';iniziato=1;}
+   //LOADING PERSONA SUCCESSIVA//
+else if(iniziato == 2){
+gidd('baseCont').innerHTML='Loading..';
+gidd('topCont').innerHTML='Perfetto! Ora lascia libera la tastiera per far continuare qualcun’altro!';
+clearContents(gidd('newCont'));gidd('newCont').setAttribute('opacity','0');
+setTimeout('iniziato=3;myInit()',4000)
+}
+   //INSERIMENTO NUOVO CONTENUTO//
+else if(iniziato == 3){gidd('newCont').setAttribute('opacity','1');
+gidd('topCont').innerHTML=newCont+'...';
+gidd('newCont').innerHTML='[...]';gidd('newCont').setAttribute('onfocus','');
+gidd('baseCont').innerHTML='Continua la storia digitando altre 8 parole';
+}
+}
+window.gidd=function(s){return document.getElementById(s)};
+//RENDER STORY//
+function renderStory(){window.newCont=gidd('newCont').value;
+if(newCont!='prosegui la storia..'||newCont!=''){gidd('storyContainer').innerHTML+=' '+newCont;
+gidd('newCont').value='';
+}else{alert('Inserisci un nuovo pezzo della storia!')}}
+function clearContents(element) {element.value = '';}
+// CONTROLLA IL LIMITE DELLE PAROLE //
+    var wordLen = 8;  // NUMERO DI PAROLE MINIMO //
+	function checkWord(obj){var len = obj.value.split(/[\s]+/);if(len.length>=wordLen){gidd('baseCont').innerHTML='Premi il pulsante';}
+	else{gidd('baseCont').innerHTML='Inserisci almeno 8 parole';}}
+     function checkWordLen(obj){
+      var len = obj.value.split(/[\s]+/);
+       if(len.length < wordLen){
+           alert('Inserisci almeno 8 parole!')
+           return false;
+       }else{check=1;}
+     return true;
+   }
+</script>
 </html>
