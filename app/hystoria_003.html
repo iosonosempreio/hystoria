@@ -148,17 +148,19 @@ $(document).ready(function() {
 </body>
 <script>
 // MEMORIA, FUNCTION CALLS E PULSANTE //
-window.onkeypress=function(event){if(setPage==0){checkWord(gidd('newCont'))}else{checkWordd(gidd('newCont'))};}
+window.onkeypress=function(event){if(setPage==0){checkWord(gidd('newCont'))}else if(setPage=1){checkWordd(gidd('newCont'))}else if(setPage==2){checkWorddX(gidd('newCont'));};}
 function myPress(){
 if(avoid==0){
-if(setPage==0){checkWord(gidd('newCont'))}else{checkWordd(gidd('newCont'));};
+if(setPage==0){checkWord(gidd('newCont'))}else if(setPage==1){checkWordd(gidd('newCont'))}else if(setPage==2){checkWorddX(gidd('newCont'));};
 						if(iniziato==0){myInit()}
 						else if(iniziato==1){checkWordLen(document.getElementById('newCont'));}
 						else if(iniziato==3){checkWordLenn(document.getElementById('newCont'));}
-						if(check==1){renderStory();check=0;iniziato=2;myInit()}}
+						else if(iniziato==4){checkWordLennX(document.getElementById('newCont'));}
+						if(check==1){renderStory();check=0;iniziato=2;myInit();checkStoryLength();}
+						if(check==2){renderStory();location.href('hystoria_003.html')}}
 						}
 						
-window.iniziato=0;window.check=0;window.setPage=0;window.setDouble=0;window.avoid=0;
+window.iniziato=0;window.check=0;window.setPage=0;window.setDouble=0;window.avoid=0;var storia='';
 
 //MOTORE//
 function myInit(){
@@ -168,7 +170,7 @@ gidd('topCont').classList.remove('begin');
 gidd('newCont').classList.remove('hide');
 gidd('topCont').innerHTML='';
 gidd('newCont').innerHTML='...';
-gidd('baseCont').innerHTML='<h3>Inizia la storia, scrivi almeno 8 parole</h3>';iniziato=1;}
+gidd('baseCont').innerHTML='<h2>Inizia la storia, scrivi almeno 8 parole</h2>';iniziato=1;}
    //LOADING PERSONA SUCCESSIVA//
 else if(iniziato == 2){avoid=1;gidd('topCont').classList.add('good');gidd('newCont').classList.add('hide');
 gidd('baseCont').innerHTML='';setPage=1;
@@ -182,13 +184,20 @@ gidd('newCont').classList.remove('hide');
 gidd('newCont').focus();
 gidd('topCont').innerHTML=newCont+'...';
 gidd('newCont').innerHTML='[...]';gidd('newCont').setAttribute('onfocus','');
-gidd('baseCont').innerHTML='<h2>Continua la storia con '+wordLenn+' parole</h2>';
+gidd('baseCont').innerHTML='<h2>Continua la storia con almeno '+wordLenn+' parole</h2>';
+}
+else if(iniziato == 4){avoid=0;gidd('topCont').classList.remove('good');gidd('topCont').classList.remove('begin');gidd('newCont').setAttribute('opacity','1');
+gidd('newCont').classList.remove('hide');
+gidd('newCont').focus();
+gidd('topCont').innerHTML=newCont+'...';
+gidd('newCont').innerHTML='[...]';gidd('newCont').setAttribute('onfocus','');
+gidd('baseCont').innerHTML='<h2>Concludi la storia con le ultime '+wordLenn+' parole</h2>';
 }
 }
 window.gidd=function(s){return document.getElementById(s)};
 //RENDER STORY//
 function renderStory(){window.newCont=gidd('newCont').value;
-if(newCont!='prosegui la storia..'||newCont!=''){/*gidd('storyContainer').innerHTML+=' '+newCont;*/
+if(newCont!='prosegui la storia..'||newCont!=''){storia=storia+newCont;
 gidd('newCont').value='';
 }else{}}
 function clearContents(element) {element.value = '';}
@@ -200,6 +209,9 @@ function clearContents(element) {element.value = '';}
 	
 	function checkWordd(obj){if(setDouble!=1){window.wordLenn = (Math.floor(Math.random() * 10)+6)};var len = obj.value.split(/[\s]+/);
 	if(len.length>=wordLenn){gidd('baseCont').innerHTML='<img src="img/gif.gif"/>';}else{gidd('baseCont').innerHTML='<h2>Continua la storia con almeno '+wordLenn+' parole</h2>';}setDouble=1;}
+	
+	function checkWorddX(obj){if(setDouble!=1){window.wordLenn = (Math.floor(Math.random() * 10)+6)};var len = obj.value.split(/[\s]+/);
+	if(len.length>=wordLenn){gidd('baseCont').innerHTML='<img src="img/gif.gif"/>';}else{gidd('baseCont').innerHTML='<h2>Concludi la storia con ultime '+wordLenn+' parole</h2>';}setDouble=1;}
      
 	 function checkWordLen(obj){
       var len = obj.value.split(/[\s]+/);
@@ -215,6 +227,17 @@ function clearContents(element) {element.value = '';}
            return false;
        }else{check=1;setDouble=0}
      return true;
+   }
+   function checkWordLennX(obj){
+      var len = obj.value.split(/[\s]+/);
+       if(len.length < wordLenn){check=0;
+           return false;
+       }else{check=2;setDouble=0}
+     return true;
+   }
+   function checkStoryLength(){
+   window.n=storia.length;
+   if(n>100){iniziato=4};
    }
 </script>
 </html>
