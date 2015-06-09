@@ -177,8 +177,9 @@ clearContents(gidd('newCont'));gidd('newCont').setAttribute('opacity','0');
 setTimeout('iniziato=3;myInit()',4000)
 }
    //INSERIMENTO NUOVO CONTENUTO//
-else if(iniziato == 3){avoid=0;gidd('topCont').classList.remove('good');gidd('topCont').classList.remove('begin');gidd('newCont').focus();gidd('newCont').setAttribute('opacity','1');
-gidd('newCont').classList.remove('hide')
+else if(iniziato == 3){avoid=0;gidd('topCont').classList.remove('good');gidd('topCont').classList.remove('begin');gidd('newCont').setAttribute('opacity','1');
+gidd('newCont').classList.remove('hide');
+gidd('newCont').focus();
 gidd('topCont').innerHTML=newCont+'...';
 gidd('newCont').innerHTML='[...]';gidd('newCont').setAttribute('onfocus','');
 gidd('baseCont').innerHTML='<h2>Continua la storia con '+wordLenn+' parole</h2>';
