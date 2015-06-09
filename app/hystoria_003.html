@@ -147,54 +147,42 @@ $(document).ready(function() {
 	<!--<div style="display:none" id="storyContainer"></div>-->	
 </body>
 <script>
+//DICHIARAZIONE VARIABILI FONDAMENTALI //
+window.gidd=function(s){return document.getElementById(s)};window.iniziato=0;window.check=0;window.setPage=0;window.setDouble=0;window.avoid=0;var storia='';window.finish=1;
+window.avoidd=0;var len= gidd('newCont').value.split(/[\s]+/);; var lenn= gidd('newCont').value.split(/[\s]+/);; var lennX= gidd('newCont').value.split(/[\s]+/);;
 // MEMORIA, FUNCTION CALLS E PULSANTE //
-window.onkeypress=function(event){if(setPage==0){checkWord(gidd('newCont'))}else if(setPage=1){checkWordd(gidd('newCont'))}else if(setPage==2){checkWorddX(gidd('newCont'));};}
-function myPress(){
-if(avoid==0){
+window.onkeypress=function(event){if(avoidd==1){if(setPage==0){checkWord(gidd('newCont'))}else if(setPage==1){checkWordd(gidd('newCont'))}else if(setPage==2){checkWorddX(gidd('newCont'));};}}
+// BUTTON PRESS FUNCTION //
+function myPress(){if(finish!=0){
+if(avoid==0){avoidd=1;
+// CONTROLLO NUMERO PAROLE ALLA PRESSIONE //
 if(setPage==0){checkWord(gidd('newCont'))}else if(setPage==1){checkWordd(gidd('newCont'))}else if(setPage==2){checkWorddX(gidd('newCont'));};
-						if(iniziato==0){myInit()}
-						else if(iniziato==1){checkWordLen(document.getElementById('newCont'));}
-						else if(iniziato==3){checkWordLenn(document.getElementById('newCont'));}
-						else if(iniziato==4){checkWordLennX(document.getElementById('newCont'));}
-						if(check==1){renderStory();check=0;iniziato=2;myInit();checkStoryLength();}
-						if(check==2){renderStory();location.href('hystoria_003.html')}}
-						}
-						
-window.iniziato=0;window.check=0;window.setPage=0;window.setDouble=0;window.avoid=0;var storia='';
-
+// LOADING STEP SUCCESSIVO //
+if(iniziato==0){myInit()}else if(iniziato==1){checkWordLen(document.getElementById('newCont'));}else if(iniziato==3){checkWordLenn(document.getElementById('newCont'));}
+	else if(iniziato==4){checkWordLennX(document.getElementById('newCont'));}
+// STORY RENDERING E FINALE //
+if(check==1){renderStory();check=0;iniziato=2;checkStoryLength();myInit();}
+if(check==2){renderStory();myPress()}};}else{ottimo();setTimeout('window.location.href = "hystoria_003.html"',10000/*TEMPO LOADING NUOVA STORIA*/)}}
 //MOTORE//
 function myInit(){
-	//INIZIO STORIA//
-if(iniziato == 0){
-gidd('topCont').classList.remove('begin');
-gidd('newCont').classList.remove('hide');
-gidd('topCont').innerHTML='';
-gidd('newCont').innerHTML='...';
+// STEP INIZIO STORIA//
+if(iniziato == 0){gidd('topCont').classList.remove('begin');gidd('newCont').classList.remove('hide');gidd('topCont').innerHTML='';gidd('newCont').innerHTML='...';
 gidd('baseCont').innerHTML='<h2>Inizia la storia, scrivi almeno 8 parole</h2>';iniziato=1;}
-   //LOADING PERSONA SUCCESSIVA//
-else if(iniziato == 2){avoid=1;gidd('topCont').classList.add('good');gidd('newCont').classList.add('hide');
-gidd('baseCont').innerHTML='';setPage=1;
-gidd('topCont').innerHTML='<h1>Bene!</h1><h2>Ora lascia libera la tastiera</br> per fare proseguire</br> qualcun altro!</h2>';
+//STEP LOADING PERSONA SUCCESSIVA//
+else if(iniziato == 2){avoid=1;avoidd=0;gidd('topCont').classList.add('good');gidd('newCont').classList.add('hide');
+gidd('baseCont').innerHTML='';setPage=1;gidd('topCont').innerHTML='<h1>Bene!</h1><h2>Ora lascia libera la tastiera</br> per fare proseguire</br> qualcun altro!</h2>';
 clearContents(gidd('newCont'));gidd('newCont').setAttribute('opacity','0');
-setTimeout('iniziato=3;myInit()',4000)
-}
-   //INSERIMENTO NUOVO CONTENUTO//
-else if(iniziato == 3){avoid=0;gidd('topCont').classList.remove('good');gidd('topCont').classList.remove('begin');gidd('newCont').setAttribute('opacity','1');
-gidd('newCont').classList.remove('hide');
-gidd('newCont').focus();
-gidd('topCont').innerHTML=newCont+'...';
-gidd('newCont').innerHTML='[...]';gidd('newCont').setAttribute('onfocus','');
-gidd('baseCont').innerHTML='<h2>Continua la storia con almeno '+wordLenn+' parole</h2>';
-}
-else if(iniziato == 4){avoid=0;gidd('topCont').classList.remove('good');gidd('topCont').classList.remove('begin');gidd('newCont').setAttribute('opacity','1');
-gidd('newCont').classList.remove('hide');
-gidd('newCont').focus();
-gidd('topCont').innerHTML=newCont+'...';
-gidd('newCont').innerHTML='[...]';gidd('newCont').setAttribute('onfocus','');
-gidd('baseCont').innerHTML='<h2>Concludi la storia con le ultime '+wordLenn+' parole</h2>';
-}
-}
-window.gidd=function(s){return document.getElementById(s)};
+setTimeout('iniziato=3;setPage=1;avoidd=1;myInit()',4000/*TEMPO DI LOADING PERSONA SUCCESSIVA*/)}
+//STEP INSERIMENTO NUOVO CONTENUTO//
+else if(iniziato == 3){checkWordd(gidd('newCont'));
+avoid=0;gidd('topCont').classList.remove('good');gidd('topCont').classList.remove('begin');gidd('newCont').setAttribute('opacity','1');
+gidd('newCont').classList.remove('hide');gidd('newCont').focus();gidd('topCont').innerHTML=newCont+'[...]';gidd('newCont').innerHTML='[...]';gidd('newCont').setAttribute('onfocus','');
+gidd('baseCont').innerHTML='<h2>Continua la storia con almeno '+wordLenn+' parole</h2>';}
+//STEP CONCLUSIONE STORIA //
+else if(iniziato == 4){checkWorddX(gidd('newCont'));
+avoid=0;gidd('topCont').classList.remove('good');gidd('topCont').classList.remove('begin');gidd('newCont').setAttribute('opacity','1');
+gidd('newCont').classList.remove('hide');gidd('newCont').focus();gidd('topCont').innerHTML=newCont+'...';gidd('newCont').innerHTML='[...]';gidd('newCont').setAttribute('onfocus','');
+gidd('baseCont').innerHTML='<h2>Concludi la storia con almeno altre '+wordLennX+' parole</h2>';}}
 //RENDER STORY//
 function renderStory(){window.newCont=gidd('newCont').value;
 if(newCont!='prosegui la storia..'||newCont!=''){storia=storia+newCont;
@@ -202,42 +190,30 @@ gidd('newCont').value='';
 }else{}}
 function clearContents(element) {element.value = '';}
 // CONTROLLA IL LIMITE DELLE PAROLE //
-    var wordLen = 8;  // NUMERO DI PAROLE MINIMO //
-	
-	function checkWord(obj){var len = obj.value.split(/[\s]+/);if(len.length>=wordLen){gidd('baseCont').innerHTML='<img src="img/gif.gif"/>';}
-	else{gidd('baseCont').innerHTML='<h2>Inserisci almeno 8 parole</h2>';}}
-	
-	function checkWordd(obj){if(setDouble!=1){window.wordLenn = (Math.floor(Math.random() * 10)+6)};var len = obj.value.split(/[\s]+/);
-	if(len.length>=wordLenn){gidd('baseCont').innerHTML='<img src="img/gif.gif"/>';}else{gidd('baseCont').innerHTML='<h2>Continua la storia con almeno '+wordLenn+' parole</h2>';}setDouble=1;}
-	
-	function checkWorddX(obj){if(setDouble!=1){window.wordLenn = (Math.floor(Math.random() * 10)+6)};var len = obj.value.split(/[\s]+/);
-	if(len.length>=wordLenn){gidd('baseCont').innerHTML='<img src="img/gif.gif"/>';}else{gidd('baseCont').innerHTML='<h2>Concludi la storia con ultime '+wordLenn+' parole</h2>';}setDouble=1;}
-     
-	 function checkWordLen(obj){
-      var len = obj.value.split(/[\s]+/);
-       if(len.length < wordLen){check=0;setPage=0;  
-           return false;
-       }else{setPage=1;check=1;}
-     return true;
-   }
-   
-   function checkWordLenn(obj){
-      var len = obj.value.split(/[\s]+/);
-       if(len.length < wordLenn){check=0;
-           return false;
-       }else{check=1;setDouble=0}
-     return true;
-   }
-   function checkWordLennX(obj){
-      var len = obj.value.split(/[\s]+/);
-       if(len.length < wordLenn){check=0;
-           return false;
-       }else{check=2;setDouble=0}
-     return true;
-   }
-   function checkStoryLength(){
-   window.n=storia.length;
-   if(n>100){iniziato=4};
-   }
+var wordLen = 8;  // NUMERO DI PAROLE MINIMO //
+//CONTROLLO STEP INIZIALE//	
+function checkWord(obj){var len = obj.value.split(/[\s]+/);if(len.length>=wordLen){gidd('baseCont').innerHTML='<img src="img/gif.gif"/>';}
+else{gidd('baseCont').innerHTML='<h2>Inserisci almeno 8 parole</h2>';}}
+//CONTROLLO STEP INTERMEDIO//
+function checkWordd(obj){if(setDouble!=1){window.wordLenn = (Math.floor(Math.random() * 10)+6)};var lenn = obj.value.split(/[\s]+/);
+if(lenn.length>=wordLenn){gidd('baseCont').innerHTML='<img src="img/gif.gif"/>';}
+else{var XX=((wordLenn)-(lenn.length));gidd('baseCont').innerHTML='<h2>Continua la storia con almeno altre '+XX+' parole</h2>';}setDouble=1;}
+//CONTROLLO STEP FINALE//
+function checkWorddX(obj){if(setDouble!=1){window.wordLennX = (Math.floor(Math.random() * 10)+6)};var lennX = obj.value.split(/[\s]+/);
+if(lennX.length>=wordLennX){gidd('baseCont').innerHTML='<img src="img/gif.gif"/>';}
+else{var XX=((wordLennX)-(lennX.length));gidd('baseCont').innerHTML='<h2>Concludi la storia con almeno altre '+XX+' parole</h2>';}setDouble=1;}
+//CONTROLLO REQUISITI IMMISSIONE FRASE - STEP INIZIALE //     
+function checkWordLen(obj){window.len = obj.value.split(/[\s]+/);if(len.length < wordLen){check=0;return false;}else{check=1;}return true;}
+//CONTROLLO REQUISITI IMMISSIONE FRASE - STEP INTERMEDIO //   
+function checkWordLenn(obj){window.lenn = obj.value.split(/[\s]+/);if(lenn.length < wordLenn){check=0;return false;}else{check=1;setDouble=0}return true;}
+//CONTROLLO REQUISITI IMMISSIONE FRASE - STEP FINALE // 
+function checkWordLennX(obj){window.lennX = obj.value.split(/[\s]+/);if(lennX.length < wordLennX){check=0;return false;}else{check=2;setDouble=0;finish=0;iniziato=5}return true;}
+//CONTROLLO LUNGHEZZA STORIA //
+   function checkStoryLength(){setPage=1;window.n=storia.length;
+   if(n>1000/*MASSIMO CARATTERI STORIA*/){iniziato=4};setPage=2}
+// FINALE - LOADING NUOVA STORIA //   
+function ottimo(){avoid=1;avoidd=0;gidd('topCont').classList.add('good');gidd('newCont').classList.add('hide');
+gidd('baseCont').innerHTML='';setPage=1;gidd('topCont').innerHTML='<h1>Ottimo!</h1><h2>Hai concluso la storia! Prossima storia collettiva fra 10 secondi</h2>';
+clearContents(gidd('newCont'));gidd('newCont').setAttribute('opacity','0');}
 </script>
 </html>
