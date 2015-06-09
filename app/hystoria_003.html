@@ -144,7 +144,7 @@ $(document).ready(function() {
 		<textarea class="hide" wrap="off" onchange="checkWordLen(this);" onfocus="clearContents(this);" id="newCont" rows="3" cols="40" autofocus></textarea>
 		<button onclick="myPress()" id="addCont">button</button></br>
 		<div id="baseCont"><img src="img/gif.gif"/></div>
-	<div id="storyContainer"></div>	
+	<!--<div style="display:none" id="storyContainer"></div>-->	
 </body>
 <script>
 // MEMORIA, FUNCTION CALLS E PULSANTE //
@@ -175,6 +175,7 @@ setTimeout('iniziato=3;myInit()',4000)
 }
    //INSERIMENTO NUOVO CONTENUTO//
 else if(iniziato == 3){gidd('topCont').classList.remove('good');gidd('topCont').classList.remove('begin');gidd('newCont').focus();gidd('newCont').setAttribute('opacity','1');
+gidd('newCont').classList.remove('hide')
 gidd('topCont').innerHTML=newCont+'...';
 gidd('newCont').innerHTML='[...]';gidd('newCont').setAttribute('onfocus','');
 gidd('baseCont').innerHTML='<h2>Continua la storia con '+wordLenn+' parole</h2>';
@@ -183,7 +184,7 @@ gidd('baseCont').innerHTML='<h2>Continua la storia con '+wordLenn+' parole</h2>'
 window.gidd=function(s){return document.getElementById(s)};
 //RENDER STORY//
 function renderStory(){window.newCont=gidd('newCont').value;
-if(newCont!='prosegui la storia..'||newCont!=''){gidd('storyContainer').innerHTML+=' '+newCont;
+if(newCont!='prosegui la storia..'||newCont!=''){/*gidd('storyContainer').innerHTML+=' '+newCont;*/
 gidd('newCont').value='';
 }else{}}
 function clearContents(element) {element.value = '';}
