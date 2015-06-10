@@ -10,6 +10,6 @@ The project is about building an installation for the (famous) [Lambrock Festiva
 ###Fixing Known Issues
 When you run the *Breakout.js* server on Mac OS X you may need to do the following ([found here](http://breakoutjs.com/2014/03/breakout-v0-3-1-available/)) to prevent it from sleeping and stop serving:
 - `Right click` on the App Package
-- **Check* `Prevent App Nap`(which should be part of the os energy saving features)
+- Check `Prevent App Nap`(which should be part of the os energy saving features)
 - Restart the server
 
