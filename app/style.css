@@ -18,7 +18,7 @@ h1 {
 	font-size: 48px;
 	margin-top: 0px;
 	margin-bottom: -20px;
-	opacity: 0.7;
+	opacity: 1;
 }
 
 h2 {
@@ -69,6 +69,14 @@ textarea {
 	transform: translateY(-50%);
 }
 
+#topCont.begin > h2 {
+	opacity:1;
+}
+
+#topCont.good > h2 {
+	opacity:1;
+}
+
 #topCont.good {
 	top: 45%;
 	-webkit-transform: translateY(-50%);
@@ -89,6 +97,7 @@ textarea {
 
 #baseCont img {
 	width: 100px;
+	cursor: pointer;
 }
 
 #addCont {
