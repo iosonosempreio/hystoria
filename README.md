@@ -6,6 +6,7 @@ The project is about building an installation for the (famous) [Lambrock Festiva
 #####Hystoria makes use of some cool stuff we found around:
 - [Arduino](http://www.arduino.cc/)
 - [Breakout.js](http://breakoutjs.com/)
+- (Right Index icon by Desbenoit)[https://thenounproject.com/search/?q=finger&i=5380]
 
 ###Fixing Known Issues
 When you run the *Breakout.js* server on Mac OS X you may need to do the following ([found here](http://breakoutjs.com/2014/03/breakout-v0-3-1-available/)) to prevent it from sleeping and stop serving:
