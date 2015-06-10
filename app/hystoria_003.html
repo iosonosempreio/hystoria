@@ -142,8 +142,8 @@ $(document).ready(function() {
 
 <div id="topCont" class="begin"><h1>Benvenuto!</h1><h2>Scrivi l'inizio di una storia,</br>poi lascia a qualcunaltro</br>il compito di proseguirla!</h2></div>
 		<textarea class="hide" wrap="off" onchange="checkWordLen(this);" onfocus="clearContents(this);" id="newCont" rows="3" cols="40" autofocus></textarea>
-		<button onclick="myPress()" id="addCont">button</button></br>
-		<div id="baseCont"><img src="img/gif.gif"/></div>
+<!-- 		<button onclick="myPress()" id="addCont">button</button></br> -->
+		<div onclick="myPress()" id="baseCont"><img src="img/gif.gif"/></div>
 	<!--<div style="display:none" id="storyContainer"></div>-->	
 </body>
 <script>
@@ -214,7 +214,7 @@ function checkWordLennX(obj){window.lennX = obj.value.split(/[\s]+/);if(lennX.le
    if(n>1000/*MASSIMO CARATTERI STORIA*/){iniziato=4};setPage=2}
 // FINALE - LOADING NUOVA STORIA //-----------------------------------------------------------------------------------------------------------------------------------------//   
 function ottimo(){avoid=1;avoidd=0;gidd('topCont').classList.add('good');gidd('newCont').classList.add('hide');
-gidd('baseCont').innerHTML='';setPage=1;gidd('topCont').innerHTML='<h1>Ottimo!</h1><h2>Hai concluso la storia! Prossima storia collettiva fra 10 secondi</h2>';
+gidd('baseCont').innerHTML='';setPage=1;gidd('topCont').innerHTML='<h1>Ottimo!<br />Hai concluso la storia!</h1><br /><h2>La scrittura della prossima<br />storia collettiva inizia fra:</h2><h1>10</h1>';
 clearContents(gidd('newCont'));gidd('newCont').setAttribute('opacity','0');}
 </script>
 </html>
