@@ -14,4 +14,4 @@ When you run the *Breakout.js* server on Mac OS X you may need to do the followi
 - Check `Prevent App Nap`(which should be part of the os energy saving features)
 - Restart the server
 
-![app-nap](nap.gif = 256x )
+![app-nap](nap.gif width="256")
