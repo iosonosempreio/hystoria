@@ -15,3 +15,5 @@ When you run the *Breakout.js* server on Mac OS X you may need to do the followi
 - Restart the server
 
 <img src="nap.gif" width="250">
+
+As far as we know, there is no similar issue on Microsoft Windows.
