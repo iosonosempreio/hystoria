@@ -6,13 +6,18 @@
   <body>
     <div id='messagesDiv'></div>
     <script>
-      var myDataRef = new Firebase("https://shining-torch-7682.firebaseio.com/");
-
-      myDataRef.on('child_added', function(snapshot) {
-        var story = snapshot.val();
-// 		console.log(story)
-        $('body').append('<h2>Storia scritta ' + story.date +'</h2><p>'+story.text+'</p>')
-      });
+		var myDataRef = new Firebase("https://shining-torch-7682.firebaseio.com/");
+		// Count the amount of written stories
+		myDataRef.on("value", function(snapshot) {
+			console.log(Object.keys(snapshot.val()).length);
+		}, function (errorObject) {
+			console.log("The read failed: " + errorObject.code);
+		});
+	  
+		myDataRef.on('child_added', function(snapshot) {
+	        var story = snapshot.val();
+			$('body').append('<h2>Storia scritta ' + story.date +'</h2><p>'+story.text+'</p>')
+    	});
 
     </script>
   </body>

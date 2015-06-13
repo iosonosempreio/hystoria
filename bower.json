@@ -28,6 +28,7 @@
     "jquery": "~2.1.4",
     "file-saver-js": "*",
     "fastclick": "~1.0.6",
-    "firebase": "~2.2.7"
+    "firebase": "~2.2.7",
+    "animate.css": "~3.3.0"
   }
 }
