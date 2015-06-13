@@ -62,7 +62,7 @@ textarea {
 }
 
 #topCont.begin {
-	top: 40%;
+	top: 35%;
 	-webkit-transform: translateY(-50%);
 	-ms-transform: translateY(-50%);
 	transform: translateY(-50%);
@@ -77,7 +77,7 @@ textarea {
 }
 
 #topCont.good {
-	top: 40%;
+	top: 35%;
 	-webkit-transform: translateY(-50%);
 	-ms-transform: translateY(-50%);
 	transform: translateY(-50%);

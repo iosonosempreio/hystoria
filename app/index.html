@@ -156,30 +156,43 @@ $(document).ready(function() {
 		<img onclick="myPress()" src="img/gif.gif"/>
 	</div>
 	<script>
-		var step=0, base="", story='', partStory='', end=false, maxLength=200, max=15, min=6, words, button='<img class="animated fadeIn" onclick="myPress()" src="img/gif.gif"/>';
+		var step=0, base="", story='', end=false, maxLength=200, max=15, min=6, words, wordCountComparator=0, button='<img class="animated fadeIn" onclick="myPress()" src="img/gif.gif"/>';
+		
 		
 		counter = function() {
 		    var value = $('#newCont').val();
 		    var regex = /\s+/gi;
-		    var wordCount = value.trim().replace(regex, ' ').split(' ').length;
-		    var totalChars = value.length;
-		    var charCount = value.trim().length;
-		    var charCountNoSpace = value.replace(regex, '').length;
-			if (wordCount >= words) {
-				$('#baseCont').html(button);
-				step=1;
-				if ( (story.length + $('#newCont').val().length) >= maxLength ){
-					console.log("lunghezza raggiunta");
-					step=2;
-					if (end === true) {
-						step = 3;
+		    var wordCount = value.trim().replace(regex, ' ').split(' ').length;		    
+		    // Do thing only when there is a new word, not every time the function is triggered
+// 		    console.log(wordCount, wordCountComparator)
+		    if (wordCountComparator!=wordCount){
+// 			    console.log("word count changed");
+			    wordCountComparator=wordCount;
+				//Check words amount and do things
+				// If there are enough words show the button and go to CASE 1: Story Continuing
+				if (wordCount >= words) {
+					$('#baseCont').html(button);
+					step=1;
+					// Then if there are enough words and enough characters as well go to the CASE 2: Story Ending
+					if ( (story.length + $('#newCont').val().length) >= maxLength ){
+						console.log("Enough characters!");
+						step=2;
+						// If it was already entered the CASE 2 then go to the Closing Screen
+						if (end === true) {
+							step = 3;
+						}
 					}
-				}			
-			} else {
-				$('#baseCont').html(base);
-				$('#wordCount').html(words - wordCount);
-				step=0;
-			}
+				// In none of the above was true is because there are no sufficient words, so just update the word counter
+				// It works even when deleting characters
+				} else {
+					$(wordCount).change(function() {
+					  console.log( "changed" );
+					});
+					$('#baseCont').html(base);
+					$('#wordCount').html("<span class='animated bounceIn' >" + (words - wordCount) + "</span>");
+					step=0;
+				}
+		    }
 		};
 		
 		function lastPart(str){
@@ -189,12 +202,29 @@ $(document).ready(function() {
 			} else {
 				return str;
 			}
-		} 
+		}
+		
+		function censorship(str){
+			//Check for BESTEMMIE E PAROLACCE DA CENSURARE perché potrebbero essere offensive
+			// Cazzo --> Ca**o
+			var stopList = [
+				{ badWord: "cazz", badReplacement: "ca**" },
+				{ badWord: "puttan", badReplacement: "pu***n" }
+			];
+			stopList.forEach(function(d,i){
+				var searchMask = d.badWord;
+				var regEx = new RegExp(searchMask, "ig");
+				var replaceMask = d.badReplacement;				
+				str = str.replace(regEx, replaceMask);
+			});
+			return str;
+		}
 		
 		function myPress() {
 			switch(step) {
+			    // Begin the story
 			    case 0:
-			        console.log("Comincia la storia.");
+			        console.log("Begin the story");
 			        step=null;
 			        words = Math.floor(Math.random()*(max-min+1)+min);
 			        base='<h3>Inizia la storia, scrivi almeno <span id="wordCount">'+words+'</span> parole</h3>'
@@ -206,9 +236,11 @@ $(document).ready(function() {
 						.addClass("animated slideInUp")
 						.html(base);
 			        break;
+			    // Continue the story
 			    case(1):
-			    	story = story + $('#newCont').val();
-			    	console.log("Continua la storia. Caratteri mancanti: ", (maxLength-story.length));
+			    	story = censorship(story+$('#newCont').val());
+			    	words = Math.floor(Math.random()*(max-min+1)+min);
+			    	console.log("Continue the story with " + words + " char. Tot character needed: ", (maxLength-story.length));
 			    	step=null;
 			    	base = '<h3>Continua la storia con almeno <span id="wordCount">'+words+'</span> parole</h3>'
 			    	$('#topCont')
@@ -218,7 +250,6 @@ $(document).ready(function() {
 			    	$('#newCont').hide();
 			    	$('#baseCont').hide();
 			    	setTimeout(function(){
-				    	words = Math.floor(Math.random()*(max-min+1)+min);
 				    	$('#topCont')
 				    		.removeClass()
 				    		.addClass('animated fadeIn')
@@ -232,9 +263,10 @@ $(document).ready(function() {
 				    		.html(base);
 				    },5000)
 			    	break;
+			    // End the story
 			    case(2):
-			    	story = story + $('#newCont').val();
-			    	console.log("Concludi la storia. Caratteri mancanti: ", (maxLength-story.length));
+			    	story = censorship(story+$('#newCont').val());
+			    	console.log("Conclude the story with " + words + " char. Tot character needed: ", (maxLength-story.length));
 			    	step=null;
 			    	base='<h3>Concludi la storia con almeno <span id="wordCount">'+words+'</span> parole</h3>'
 			    	$('#topCont')
@@ -261,7 +293,7 @@ $(document).ready(function() {
 			    	end = true;
 			    	break;
 			    case(3):
-			    	story = story + $('#newCont').val();
+			    	story = censorship(story+$('#newCont').val());
 			    	console.log("Storia conclusa. Caratteri mancanti: ", (maxLength-story.length));
 			    	step=null;
 			    	$('#topCont')
@@ -290,11 +322,10 @@ $(document).ready(function() {
 			    	break;
 			    default:
 			    	//If they press the button while it is "forbidden" to do, this is what's executed
-			        console.log("Pressione fastidiosa")
+			        console.log("Annoying pressing")
 					break;
 			}
-		}
-		
+		}		
 		$(document).ready(function() {
 		    $('#newCont').change(counter);
 		    $('#newCont').keydown(counter);
