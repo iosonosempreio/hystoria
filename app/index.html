@@ -14,6 +14,7 @@
 <script src="libs/Breakout.min.js"></script>
 <script src="libs/fastclick.min.js"></script>
 <script src="libs/jquery.min.js"></script>
+<script src="libs/FileSaver.min.js"></script>
 <script type="text/javascript">
 
 $(document).ready(function() {
@@ -154,7 +155,7 @@ $(document).ready(function() {
 		<img onclick="myPress()" src="img/gif.gif"/>
 	</div>
 	<script>
-		var step=0, story='', partStory='', end=false, maxLength=900, max=15, min=6, words, button='<img onclick="myPress()" src="img/gif.gif"/>';
+		var step=0, story='', partStory='', end=false, maxLength=200, max=15, min=6, words, button='<img onclick="myPress()" src="img/gif.gif"/>';
 		
 		counter = function() {
 		    var value = $('#newCont').val();
@@ -163,7 +164,6 @@ $(document).ready(function() {
 		    var totalChars = value.length;
 		    var charCount = value.trim().length;
 		    var charCountNoSpace = value.replace(regex, '').length;
-			
 			if (wordCount >= words) {
 				$('#baseCont').html(button);
 				step=1;
@@ -193,7 +193,7 @@ $(document).ready(function() {
 		function myPress() {
 			switch(step) {
 			    case 0:
-			        console.log("Comincia la storia");
+			        console.log("Comincia la storia.");
 			        step=null;
 			        $('#newCont').val('');
 			        words = Math.floor(Math.random()*(max-min+1)+min);
@@ -203,10 +203,9 @@ $(document).ready(function() {
 					$('#baseCont').html('<h3>Inizia la storia, scrivi almeno <span id="wordCount">'+words+'</span> parole</h3>');
 			        break;
 			    case(1):
-			    	console.log("Continua la storia");
-			    	step=null;	
 			    	story = story + $('#newCont').val();
-// 			    	partStory = story.slice(story.length-30, story.length);
+			    	console.log("Continua la storia. Caratteri mancanti: ", (maxLength-story.length));
+			    	step=null;	
 			    	$('#topCont')
 			    		.addClass('good')
 			    		.html('<h1>Bene!</h1><h2>Ora lascia libera la tastiera</br> e fai proseguire qualcun altro!</h2>');
@@ -228,10 +227,9 @@ $(document).ready(function() {
 			    	
 			    	break;
 			    case(2):
-			    	console.log("Concludi la storia");
-			    	step=null;
 			    	story = story + $('#newCont').val();
-// 			    	partStory = story.slice(story.length-30, story.length);
+			    	console.log("Concludi la storia. Caratteri mancanti: ", (maxLength-story.length));
+			    	step=null;
 			    	$('#topCont')
 			    		.addClass('good')
 			    		.html('<h1>Bene!</h1><h2>Ora lascia libera la tastiera</br> e fai proseguire qualcun altro!</h2>');
@@ -254,7 +252,8 @@ $(document).ready(function() {
 			    	end = true;
 			    	break;
 			    case(3):
-			    	console.log("Storia conclusa, case", step);
+			    	story = story + $('#newCont').val();
+			    	console.log("Storia conclusa. Caratteri mancanti: ", (maxLength-story.length));
 			    	step=null;
 			    	$('#topCont')
 			    		.addClass('good')
@@ -262,7 +261,11 @@ $(document).ready(function() {
 			    	$('#newCont')
 			    		.val('')
 			    		.hide();
-			    	$('#baseCont').html('');
+			    	$('#baseCont')
+			    		.html('')
+			    		.hide();
+			    	var blob = new Blob([story], {type: "text/plain;charset=utf-8"});
+					saveAs(blob, "story.txt");
 					$(function(){
 						var timer = setInterval(function(){
 							$("#timeOut").html(function(i,html){
