@@ -208,13 +208,13 @@ $(document).ready(function() {
 			//Check for BESTEMMIE E PAROLACCE DA CENSURARE perché potrebbero essere offensive
 			// Cazzo --> Ca**o
 			var stopList = [
-				{ badWord: "cazz", badReplacement: "ca**" },
-				{ badWord: "puttan", badReplacement: "pu***n" }
+				{ w: "cazz", rpl: "ca**" },
+				{ w: "puttan", rpl: "pu***n" }
 			];
 			stopList.forEach(function(d,i){
-				var searchMask = d.badWord;
+				var searchMask = d.w;
 				var regEx = new RegExp(searchMask, "ig");
-				var replaceMask = d.badReplacement;				
+				var replaceMask = d.rpl;				
 				str = str.replace(regEx, replaceMask);
 			});
 			return str;
