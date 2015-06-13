@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <script src="bower_components/firebase/firebase.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id='messagesDiv'></div>
+    <script>
+      var myDataRef = new Firebase("https://shining-torch-7682.firebaseio.com/");
+
+      myDataRef.on('child_added', function(snapshot) {
+        var story = snapshot.val();
+// 		console.log(story)
+        $('body').append('<h2>Storia scritta ' + story.date +'</h2><p>'+story.text+'</p>')
+      });
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,33 @@
+{
+  "name": "hystoria",
+  "version": "0.0.0",
+  "homepage": "https://github.com/iosonosempreio/hystoria",
+  "authors": [
+    "iosonosempreio <tommaso.elli@gmail.com>",
+    "tritone11 <gioelecerati@gmail.com>"
+  ],
+  "description": "hystorya: experimental collective narration",
+  "keywords": [
+    "hystoria",
+    "iosonosempreio",
+    "tritone11",
+    "lambrock",
+    "mondo",
+    "delle",
+    "uova"
+  ],
+  "license": "GNU 3.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "file-saver-js": "*",
+    "fastclick": "~1.0.6",
+    "firebase": "~2.2.7"
+  }
+}
