@@ -5,8 +5,15 @@ html, body {
 }
 
 body {
-	background-color: #F6F4B8;
-	font-family: 'Volkhov', serif;	
+	background-color: #39473F;
+	background-color: white;
+	font-family: 'Volkhov', serif;
+	color: #39473F;
+}
+
+header{
+	width: 820px;
+	margin: 40px auto 0px;
 }
 
 h1,h2,h3,h4,h5,h6 {
@@ -31,6 +38,31 @@ h3 {
 	font-size: 18px;
 	font-style: italic;
 	line-height: normal;
+}
+
+h4 {
+	/* hystoria: */
+	font-size: 64px;
+	font-style: italic;
+	color: #39473F;
+	letter-spacing: 2.5px;
+	line-height: 82px;
+	margin: 5px 0px;
+}
+h2.subtitle {
+	 /* Esperimento di scrit: */
+	font-size: 36px;
+	font-style: italic;
+	color: rgba(56,71,63,0.70);
+	letter-spacing: 1.4px;
+	line-height: 46px;
+	margin: 5px 0px;
+ }
+ 
+ p {
+  font-size: 16px;
+  color: rgba(56,71,63,0.70);
+  line-height: normal;
 }
 
 textarea {
@@ -110,49 +142,30 @@ textarea {
 	display: none;
 }
 
-/* Old Style */
-/*
-body {
-    margin: 15px;
-    font-family: sans-serif;
-    font-size: 16px;
-    line-height: 1.5em;
-    color: #666;
+.nascosto{opacity:0}
+
+.story-cont {
+  box-sizing: border-box;
+  max-width: 100%;
+  margin: 22px auto 20px;
+  width: 900px;
+  border-radius: 5px;
+  padding: 30px 40px 50px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 }
-h2 {
-    padding-left: 0px;
-    font-weight: normal;
-    font-size: 28px;
-    color: #00AEFF;
+
+.story-cont p {
+	margin-top: 0px;
+	font-family: Volkhov-Regular;
+	font-size: 18px;
+	color: #39473F;
+	line-height: 28px;
 }
-.ledBtns {
-    padding: 10px;
-    font-size: 22px;
-    width: 130px;
-    color: #00AEFF;
+
+p.story-date {
+	/* Scritta il 14/5/2015: */
+	font-size: 14px;
+	color: rgba(56,71,63,0.80);
+	line-height: 18px;
+	text-align: right;
 }
-#state {
-    color: #00AEFF;
-    font-size: 22px;
-    margin-bottom: 0;
-}
-.container {
-    background-color: #f7f7f7;
-    padding: 0 10px 20px 10px;
-    border: 1px dotted #CCC;
-    width: 270px;
-    margin-top: 20px;
-}
-.spacer {
-    margin-left: 5px;
-}
-#schematic {
-    position: absolute;
-    display: none;
-    top: 65px;
-    left: 15px;
-}
-#schematicBtn {
-    margin-top: 20px;
-}
-*/

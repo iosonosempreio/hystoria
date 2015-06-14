@@ -1,22 +1,43 @@
 <html>
   <head>
+<!-- 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/> -->
     <script src="bower_components/firebase/firebase.js"></script>
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="bower_components/animate.css/animate.min.css"/>
+    <!-- Other Dependencies -->
+	<link href='http://fonts.googleapis.com/css?family=Volkhov:400,400italic,700,700italic' rel='stylesheet' type='text/css'/>
+	<link rel="stylesheet" type="text/css" href="style.css"/>
   </head>
   <body>
-    <div id='messagesDiv'></div>
+  	<header>
+		<h4>hystoria</h4>
+		<h2 class="subtitle">Esperimento di scrittura collettiva</h2>
+		<p>Vi siete mai domandati come deve essere scrivere un breve racconto senza conoscerne il soggetto o la trama, ma semplicemente continuando dalle ultime parole che sono state scritte?<br />Chissà quali stramberie possono essere prodotte…</p>
+		<p><i>hystoria</i> serve proprio a questo, perciò metti le mani sulla tastiera e scrivi il tuo pezzo di storia!</p>
+		<p><b>Leggi l'ultima storia scritta:</b></p>
+	</header>	
+	<div id='box'></div>
     <script>
 		var myDataRef = new Firebase("https://shining-torch-7682.firebaseio.com/");
-		// Count the amount of written stories
-		myDataRef.on("value", function(snapshot) {
+/*
+		myDataRef.once("value", function(snapshot) {
 			console.log(Object.keys(snapshot.val()).length);
-		}, function (errorObject) {
-			console.log("The read failed: " + errorObject.code);
 		});
-	  
+*/
+		var c = 1;
 		myDataRef.on('child_added', function(snapshot) {
-	        var story = snapshot.val();
-			$('body').append('<h2>Storia scritta ' + story.date +'</h2><p>'+story.text+'</p>')
+	        // Count the amount of written stories
+// 	        console.log( Object.keys(snapshot.val()) )
+	        var story = snapshot.val(), storyId = "story"+c, prevStory = "story"+c-1;
+// 	        console.log(storyId);
+	        var d = new Date(story.date)
+	        console.log(d)
+			$(".story-cont")
+				.hide()
+				.removeClass("animated fadeInUp")
+			$('#box').append('<div id="'+ storyId +'" class="story-cont" style="background-color:'+story.color+'"><p>'+story.text+'</p><p class="story-date">Scritta il ' + d.getDate() + '/' + d.getMonth() + '/' + d.getFullYear() + ' ' +' alle ore ' + d.getHours() + ':' + d.getMinutes() + '</p></div>')
+			$('#'+storyId+'').addClass("animated fadeInUp")
+			c++;
     	});
 
     </script>

@@ -94,7 +94,7 @@
 	});
 </script>
 </head>
-<body>
+<body class="nascosto">
 	<div id="topCont" class="begin animated pulse">
 		<h1>Benvenuto!</h1>
 		<h2>Scrivi l'inizio di una storia,</br>poi lascia a qualcun altro il compito di proseguirla!</h2>
@@ -104,10 +104,17 @@
 		<img onclick="myPress()" src="img/gif.gif"/>
 	</div>
 	<script>
-		var step=0, base="", story='', end=false, maxLength=900, max=20, min=5, words, wordCountComparator=0, button='<img class="animated fadeIn" onclick="myPress()" src="img/gif.gif"/>', restart="index.html";
+		var step=0, base="", story='', end=false, maxLength=900, max=20, min=5, words, wordCountComparator=0, button='<img class="animated fadeIn" onclick="myPress()" src="img/gif.gif"/>', restart="index.html", color=['#F6F4B8','#CAE8E4','#D9D8D2','#FCCFBF','#FFF7E1'], thisColor;
 		
 		// Firebase Database
 		var myDataRef = new Firebase("https://shining-torch-7682.firebaseio.com/");
+		myDataRef.once("value", function(snapshot) {
+			$('body')
+				.css({ 'background-color': color[Object.keys(snapshot.val()).length % 5] })
+				.addClass("animated fadeIn")
+			thisColor = color[Object.keys(snapshot.val()).length % 5]
+			console.log(thisColor)			
+		});
 		
 		counter = function() {
 		    var value = $('#newCont').val();
@@ -120,7 +127,7 @@
 				// If there are enough words show the button and go to CASE 1: Story Continuing
 				if (wordCount >= words) {
 					$('#baseCont').html(button);
-					window.led.on();
+// 					window.led.on();
 					step=1;
 					// Then if there are enough words and enough characters as well go to the CASE 2: Story Ending
 					if ( (story.length + $('#newCont').val().length) >= maxLength ){
@@ -135,7 +142,7 @@
 				// It works even when deleting characters
 				} else {
 					$('#baseCont').html(base);
-					window.led.off();
+// 					window.led.off();
 					$('#wordCount').html("<span class='animated bounceIn' >" + (words - wordCount) + "</span>");
 					step=0;
 				}
@@ -156,7 +163,11 @@
 			// Cazzo --> Ca**o
 			var stopList = [
 				{ w: "cazz", rpl: "ca**" },
-				{ w: "puttan", rpl: "pu***n" }
+				{ w: "puttan", rpl: "pu***n" },
+				{ w: "porco dio", rpl: "<i>orto bio</i>" },
+				{ w: "dio cane", rpl: "<i>bio pane</i>" },
+				{ w: "porca mandonna", rpl: "<i>porta 'na donna</i>" },
+				{ w: "madonna maiala", rpl: "<i>'na donna maiata</i>" },
 			];
 			stopList.forEach(function(d,i){
 				var searchMask = d.w;
@@ -255,7 +266,8 @@
 					var d = new Date();
 					var toPush = {
 						"date": d.toString(),
-						"text": story
+						"text": story,
+						"color": thisColor
 					};
 					myDataRef.push(toPush);
 					console.log("saved to firebase");
@@ -266,6 +278,10 @@
 									return parseInt(html)-1;
 								} else {
 									clearTimeout(timer);
+									$("body")
+										.removeClass()
+										.addClass("animated fadeOut")
+										.css({"backgroud-color":"#39473F"})
 									window.location.href = restart;
 								}
 							});	
