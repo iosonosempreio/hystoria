@@ -19,17 +19,11 @@
 	<div id='box'></div>
     <script>
 		var myDataRef = new Firebase("https://shining-torch-7682.firebaseio.com/");
-/*
-		myDataRef.once("value", function(snapshot) {
-			console.log(Object.keys(snapshot.val()).length);
-		});
-*/
+
 		var c = 1;
 		myDataRef.on('child_added', function(snapshot) {
 	        // Count the amount of written stories
-// 	        console.log( Object.keys(snapshot.val()) )
 	        var story = snapshot.val(), storyId = "story"+c, prevStory = "story"+c-1;
-// 	        console.log(storyId);
 	        var d = new Date(story.date)
 	        console.log(d)
 			$(".story-cont")

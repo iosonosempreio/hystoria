@@ -104,7 +104,7 @@
 		<img onclick="myPress()" src="img/gif.gif"/>
 	</div>
 	<script>
-		var step=0, base="", story='', end=false, maxLength=900, max=20, min=5, words, wordCountComparator=0, button='<img class="animated fadeIn" onclick="myPress()" src="img/gif.gif"/>', restart="index.html", color=['#F6F4B8','#CAE8E4','#D9D8D2','#FCCFBF','#FFF7E1'], thisColor;
+		var step=0, base="", story='', end=false, maxLength=900, max=15, min=5, words, wordCountComparator=0, button='<img class="animated fadeIn" onclick="myPress()" src="img/gif.gif"/>', restart="index.html", color=['#F6F4B8','#CAE8E4','#D9D8D2','#FCCFBF','#FFF7E1'], thisColor;
 		
 		// Firebase Database
 		var myDataRef = new Firebase("https://shining-torch-7682.firebaseio.com/");
@@ -144,7 +144,7 @@
 					$('#baseCont').html(base);
 // 					window.led.off();
 					$('#wordCount').html("<span class='animated bounceIn' >" + (words - wordCount) + "</span>");
-					step=0;
+					step=null;
 				}
 		    }
 		};
@@ -159,15 +159,15 @@
 		}
 		
 		function censorship(str){
-			//Check for BESTEMMIE E PAROLACCE DA CENSURARE perché potrebbero essere offensive
-			// Cazzo --> Ca**o
+			//Check for swear words that may result as offending for some people. Italian list.
 			var stopList = [
-				{ w: "cazz", rpl: "ca**" },
-				{ w: "puttan", rpl: "pu***n" },
 				{ w: "porco dio", rpl: "<i>orto bio</i>" },
+				{ w: "dio porco", rpl: "<i>bio parco</i>" },
 				{ w: "dio cane", rpl: "<i>bio pane</i>" },
 				{ w: "porca mandonna", rpl: "<i>porta 'na donna</i>" },
-				{ w: "madonna maiala", rpl: "<i>'na donna maiata</i>" },
+				{ w: "madonna maiala", rpl: "<i>'na donna gitana</i>" },
+				{ w: "porcodio", rpl: "<i>gorgoglio</i>" },
+				{ w: "dioporco", rpl: "<i>distorto</i>" },
 			];
 			stopList.forEach(function(d,i){
 				var searchMask = d.w;
@@ -196,7 +196,7 @@
 			        break;
 			    // Continue the story
 			    case(1):
-			    	story = censorship(story+$('#newCont').val());
+			    	story = censorship(story+$('#newCont').val()+" ");
 			    	words = Math.floor(Math.random()*(max-min+1)+min);
 			    	console.log("Continue the story with " + words + " char. Tot character needed: ", (maxLength-story.length));
 			    	step=null;
@@ -250,6 +250,7 @@
 				    },5000)			    	
 			    	end = true;
 			    	break;
+			    // Story endend
 			    case(3):
 			    	story = censorship(story+$('#newCont').val());
 			    	console.log("Storia conclusa. Caratteri mancanti: ", (maxLength-story.length));
@@ -289,7 +290,7 @@
 					});
 			    	break;
 			    default:
-			    	//If they press the button while it is "forbidden" to do, this is what's executed
+			    	//If they press the button while they shouldn't, this is what's executed
 			        console.log("Annoying pressing")
 					break;
 			}
