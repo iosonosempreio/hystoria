@@ -127,7 +127,7 @@
 				// If there are enough words show the button and go to CASE 1: Story Continuing
 				if (wordCount >= words) {
 					$('#baseCont').html(button);
-// 					window.led.on();
+ 					window.led.on();
 					step=1;
 					// Then if there are enough words and enough characters as well go to the CASE 2: Story Ending
 					if ( (story.length + $('#newCont').val().length) >= maxLength ){
@@ -142,7 +142,7 @@
 				// It works even when deleting characters
 				} else {
 					$('#baseCont').html(base);
-// 					window.led.off();
+ 					window.led.off();
 					$('#wordCount').html("<span class='animated bounceIn' >" + (words - wordCount) + "</span>");
 					step=null;
 				}
