@@ -106,7 +106,14 @@
 	<script>
 		var step=0, base="", story='', end=false, maxLength=900, max=15, min=5, words, wordCountComparator=0, button='<img class="animated fadeIn" onclick="myPress()" src="img/gif.gif"/>', restart="index.html", color=['#F6F4B8','#CAE8E4','#D9D8D2','#FCCFBF','#FFF7E1'], thisColor;
 		
-		// Firebase Database
+		// Count the number of written stories
+		
+		//load the json, count the numbers and do N % 5
+		//calculate the variable thisColor
+		//set bg color as thisColor
+		//keep thisColor, we'll use it later
+		
+		
 		var myDataRef = new Firebase("https://shining-torch-7682.firebaseio.com/");
 		myDataRef.once("value", function(snapshot) {
 			$('body')
@@ -265,11 +272,17 @@
 			    		.html('')
 			    		.hide();
 					var d = new Date();
+					
+					//this is the object to sent to the server
+					//then just set a variable with all the stories, add this one, then save as json
+					//we'll access this json at the beginning of the next app calling
 					var toPush = {
 						"date": d.toString(),
 						"text": story,
 						"color": thisColor
 					};
+					//send this obj to the server
+					
 					myDataRef.push(toPush);
 					console.log("saved to firebase");
 					$(function(){
