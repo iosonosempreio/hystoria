@@ -2,7 +2,7 @@
 ######Collective stories: a social experiment
 
 The project is about building an installation for the (famous) [Lambrock Festival](http://www.lambrockfestival.com) which takes place in Lambrugo ([here](https://www.google.it/maps/place/Via+Bovia,+5,+22045+Lambrugo+CO/data=!4m2!3m1!1s0x4786a179564d7947:0xc793d363cb460870?sa=X&ei=y6psVcufOsbgywOvh4PoAw&ved=0CCAQ8gEwAA)) every year since 2012.
-The aim of this installation is to make people able of writing collective stories: the application asks a first person to start typing some words, in a range between 10 and 20, then it stops. After that another person can come in and continue the narration starting from the last 5 words of the previous story teller.
+The aim of this installation is to make people able of writing collective stories: the application asks a first person to start typing some words, in a range between 10 and 20, then it stops. After that another person can come in and continue the narration starting from the last 5 words of the previous storyteller.
 
 #####Hystoria makes use of some cool stuff we found around:
 - [Arduino](http://www.arduino.cc/)
